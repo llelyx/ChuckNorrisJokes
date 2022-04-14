@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<JokeAdapter.JokeViewHolder>? = null
 
+    // les bouts de code avec binding servent à remplacer kotlin.android.extensions qui ne fonctionnait pas
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,5 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         adapter = JokeAdapter()
         binding.recyclerView.adapter = adapter
+
     }
 }

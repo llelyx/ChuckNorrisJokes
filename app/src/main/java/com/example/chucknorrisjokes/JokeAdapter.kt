@@ -14,7 +14,7 @@ class JokeAdapter: RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
         "Joke 7", "Joke 8", "Joke 9", "Joke 10")
 
     private val images = intArrayOf(R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image,
-        R.drawable.image, R.drawable.image, R.drawable.ic_launcher_background, R.drawable.image, R.drawable.image,
+        R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image,
         R.drawable.image)
 
     /**

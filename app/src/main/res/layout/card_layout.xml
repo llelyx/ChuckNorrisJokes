@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="#81C784"
+    app:cardBackgroundColor="#384762"
     app:cardCornerRadius="12dp"
     app:cardElevation="3dp"
     app:contentPadding="4dp">
@@ -17,13 +17,15 @@
         android:id="@+id/relativeLayout"
         android:padding="16dp"
         >
+
         <ImageView
             android:id="@+id/item_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@+string/Chuck Norris image" />
+            android:contentDescription="@+string/Chuck Norris image"
+            android:src="@drawable/image"/>
 
         <TextView
             android:id="@+id/item_title"
