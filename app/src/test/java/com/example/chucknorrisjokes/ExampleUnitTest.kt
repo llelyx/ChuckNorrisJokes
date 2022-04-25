@@ -1,17 +1,43 @@
 package com.example.chucknorrisjokes
 
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.*
+import org.junit.Assert
 import org.junit.Test
 
-import org.junit.Assert.*
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * /!\ THIS FILE MUST NOT BE EDITED /!\
  */
-class ExampleUnitTest {
+class JokeSerializationTest {
+    private val baseJson =
+        """{"categories":[],"created_at":"2020-01-05 13:42:29.296379","icon_url":"https://assets.chucknorris.host/img/avatar/chuck-norris.png","id":"p3GHoau2SLGTv04XhtIeeg","updated_at":"2020-01-05 13:42:29.296379","url":"https://api.chucknorris.io/jokes/p3GHoau2SLGTv04XhtIeeg","value":"Which came first - the chicken or the egg? Chuck Norris said it was the beer which came first, the hell with these damn animals!!!"}"""
+
+    private val baseJoke = Joke(
+        categories = emptyList(),
+        createdAt = "2020-01-05 13:42:29.296379",
+        iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+        id = "p3GHoau2SLGTv04XhtIeeg",
+        updatedAt = "2020-01-05 13:42:29.296379",
+        url = "https://api.chucknorris.io/jokes/p3GHoau2SLGTv04XhtIeeg",
+        value = "Which came first - the chicken or the egg? Chuck Norris said it was the beer which came first, the hell with these damn animals!!!"
+    )
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun `serialization is correct`() {
+        val json = Json.encodeToString(baseJoke)
+        Assert.assertEquals(baseJson, json)
+    }
+
+    @Test
+    fun `deserialization is correct`() {
+        val joke: Joke = Json.decodeFromString(baseJson)
+        Assert.assertEquals(baseJoke, joke)
+    }
+
+    companion object {
+        private val Json = Json {
+            encodeDefaults = true
+        }
     }
 }

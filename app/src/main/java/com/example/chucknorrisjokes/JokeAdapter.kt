@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 class JokeAdapter: RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
     private val jokes = listJokes
 
+
     private var titles = arrayOf("Joke 1", "Joke 2", "Joke 3", "Joke 4", "Joke 5", "Joke 6",
         "Joke 7", "Joke 8", "Joke 9", "Joke 10")
 
