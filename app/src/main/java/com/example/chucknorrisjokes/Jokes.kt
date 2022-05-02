@@ -11,5 +11,3 @@ val listJokes : List<String> = mutableListOf(
     "Chuck Norris is who taught Pai Mei from Kill Bill.",
     "There is in fact an 'I' in Norris, but there is no 'team'. Not even close.",
     "Chuck Norris can drive a freight train on a dirt road")
-
-//val listJokes : List<Joke> = mutableListOf()
