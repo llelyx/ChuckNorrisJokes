@@ -3,12 +3,15 @@ package com.example.chucknorrisjokes
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.chucknorrisjokes.api.JokeApiService
+import com.example.chucknorrisjokes.api.JokeApiServiceFactory
 import com.example.chucknorrisjokes.databinding.ActivityMainBinding
-import com.example.chucknorrisjokes.repository.Repository
+import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     // all bindings are replacing kotlin.android.extensions which didn't work
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    //private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,21 +36,19 @@ class MainActivity : AppCompatActivity() {
         adapter = JokeAdapter()
         binding.recyclerView.adapter = adapter
 
-        val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.giveMeAJoke()
+        val service: JokeApiService = JokeApiServiceFactory.service
+        val jokeService: JokeApiService = JokeApiServiceFactory.buildService(service)
+        val joke: Single<Joke> = jokeService.giveMeAJoke()
+        val myCompositeDisposable = CompositeDisposable()
 
-        viewModel.myResponse.observe(this, Observer { response ->
-            if (response.isSuccessful) {
-                Log.d("Response", response.body()?.value.toString())
-                //textView.text = response.body()?.value.toString())
-            }
-            else {
-                Log.d("Response", response.code().toString())
-                //textView.text = response.code().toString()
-            }
-        })
+        myCompositeDisposable.add(joke.subscribeOn(Schedulers.io())
+            .subscribeBy(
+            onError = {Log.d("Response", it.stackTraceToString())},
+            onSuccess = {Log.d("Response", it.value)}
+            )
+        )
+
+        //myCompositeDisposable.clear()
 
     }
 }

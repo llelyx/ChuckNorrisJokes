@@ -8,18 +8,20 @@ import okhttp3.MediaType
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.create
 
 object JokeApiServiceFactory {
 
-    private val retrofit by lazy {
-        Retrofit.Builder()
+    val builder: Retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(Json.asConverterFactory(MediaType.get("application/json")))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
-    }
 
-    val api: JokeApiService by lazy{
-        retrofit.create(JokeApiService::class.java)
-    }
+    val service: JokeApiService = builder.create(JokeApiService::class.java)
+
+//    val jokeRequest = service.giveMeAJoke()
+
+    fun<JokeApiService> buildService(service: JokeApiService):
+            JokeApiService {return service}
 }
