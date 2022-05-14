@@ -8,23 +8,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class JokeAdapter: RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
-    private var jokes = emptyList<Joke>()
+    var jokes = mutableListOf<String>()
 
-
-    /*private var titles = arrayOf("Joke 1", "Joke 2", "Joke 3", "Joke 4", "Joke 5", "Joke 6",
-        "Joke 7", "Joke 8", "Joke 9", "Joke 10")*/
-
-    private val images = intArrayOf(R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image,
-        R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image,
-        R.drawable.image)
+//    val images = intArrayOf(R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image,
+//        R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image,
+//        R.drawable.image)
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
     class JokeViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        var itemImage: ImageView = view.findViewById(R.id.item_image)
-        var itemTitle: TextView = view.findViewById(R.id.item_title)
+        //var itemImage: ImageView = view.findViewById(R.id.item_image)
         var itemText: TextView = view.findViewById(R.id.item_text)
 
 //        init {
@@ -50,9 +45,9 @@ class JokeAdapter: RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.itemImage.setImageResource(images[position])
+        //viewHolder.itemImage.setImageResource(images[position])
         //viewHolder.itemTitle.text = titles[position]
-        viewHolder.itemText.text = jokes[position].value
+        viewHolder.itemText.text = jokes[position]
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -61,9 +56,9 @@ class JokeAdapter: RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
     }
 
     // Update the list of jokes to add new ones from the Chuck Norris API
-    fun updateJokes(list: List<Joke>) {
-        jokes = list
-        notifyDataSetChanged()
+    fun updateJokes(joke: Joke) {
+        jokes.add(joke.value)
+        JokeAdapter().notifyDataSetChanged()
     }
 
 
