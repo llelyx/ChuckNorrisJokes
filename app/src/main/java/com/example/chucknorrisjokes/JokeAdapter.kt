@@ -9,28 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 
 class JokeAdapter: RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
     var jokes = mutableListOf<String>()
-
-//    val images = intArrayOf(R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image,
-//        R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image, R.drawable.image,
-//        R.drawable.image)
+    var images = mutableListOf<Int>()
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
     class JokeViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        //var itemImage: ImageView = view.findViewById(R.id.item_image)
+        var itemImage: ImageView = view.findViewById(R.id.item_image)
         var itemText: TextView = view.findViewById(R.id.item_text)
 
-//        init {
-////             Define click listener for the ViewHolder's View.
-//
-//            view.setOnClickListener{
-//                val position: Int = adapterPosition
-//
-//                Toast.makeText(view.context, "You clicked on ${titles[position]}", Toast.LENGTH_LONG).show()
-//            }
-//        }
     }
 
     // Create new views (invoked by the layout manager)
@@ -43,10 +31,8 @@ class JokeAdapter: RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: JokeViewHolder, position: Int) {
 
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        //viewHolder.itemImage.setImageResource(images[position])
-        //viewHolder.itemTitle.text = titles[position]
+        // Get element from your dataset at this position and replace the contents of the view with that element
+        viewHolder.itemImage.setImageResource(images[position])
         viewHolder.itemText.text = jokes[position]
     }
 
@@ -58,6 +44,7 @@ class JokeAdapter: RecyclerView.Adapter<JokeAdapter.JokeViewHolder>() {
     // Update the list of jokes to add new ones from the Chuck Norris API
     fun updateJokes(joke: Joke) {
         jokes.add(joke.value)
+        images.add(R.drawable.image)
         JokeAdapter().notifyDataSetChanged()
     }
 
