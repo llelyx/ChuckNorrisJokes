@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ChuckNorrisJokes</string>
     <string name="add_joke">New joke</string>
+    <string name="share">Share</string>
+    <string name="save">Save</string>
+    <string name="button_that_unsaves_a_joke">Button that unsaves a joke</string>
+    <string name="button_that_saves_a_joke">Button that saves a joke</string>
+    <string name="button_that_shares_a_joke">Button that shares a joke</string>
 </resources>

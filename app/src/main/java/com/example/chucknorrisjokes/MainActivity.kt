@@ -1,15 +1,11 @@
 package com.example.chucknorrisjokes
 
-import android.R
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chucknorrisjokes.api.JokeApiService
 import com.example.chucknorrisjokes.api.JokeApiServiceFactory
@@ -19,14 +15,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
 
     // all bindings are replacing viewModels because kotlin.android.extensions didn't work
     private lateinit var binding: ActivityMainBinding
-    private var progressBar: ProgressBar? = null
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,24 +44,30 @@ class MainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                    onError = {Log.d("Response", it.stackTraceToString())},
+                    onError = {
+                        Log.d("Response", it.stackTraceToString())
+                        //myCompositeDisposable.clear()
+                        },
                     onSuccess = {
                         adapter.updateJokes(it)
                         binding.recyclerView.layoutManager = layoutManager
                         binding.recyclerView.adapter = adapter
                         binding.progressBar.visibility = View.INVISIBLE
+
+                        //myCompositeDisposable.clear()
                     }
                 )
             )
         }
 
-        getAJoke()
-        binding.buttonAddJoke.setOnClickListener{getAJoke()}
+        fun giveMeNJokes(n: Int){
+            for (i in 0 until n){getAJoke()}
+        }
 
-
-
-        //Log.d("Response", adapter.jokes.toString())
-        //myCompositeDisposable.clear()
+        giveMeNJokes(10)
+        binding.buttonAddJoke.setOnClickListener{giveMeNJokes(10)}
 
     }
+
+
 }

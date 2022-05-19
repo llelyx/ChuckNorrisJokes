@@ -1,6 +1,7 @@
 package com.example.chucknorrisjokes.api
 
 import com.example.chucknorrisjokes.Joke
+import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 
